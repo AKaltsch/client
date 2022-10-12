@@ -1,17 +1,20 @@
 import React, { useState } from "react";
+import "./App.css";
 
-function Login() {
+function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function LoginUser(e) {
+  async function registerUser(e) {
     e.preventDefault();
-    const response = await fetch("http://localhost:4000/api/login", {
+    const response = await fetch("http://localhost:4000/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name,
         email,
         password,
       }),
@@ -19,19 +22,19 @@ function Login() {
 
     const data = await response.json();
 
-    if (data.user) {
-      alert("Login successful!!!");
-    } else {
-      alert("Invalid email or password");
-    }
-
     console.log(data);
   }
 
   return (
     <div className="App">
-      <h1>Login</h1>
-      <form onSubmit={LoginUser}>
+      <h1>Register</h1>
+      <form onSubmit={registerUser}>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          type="text"
+          placeholder="Name"
+        />
         <br />
         <input
           value={email}
@@ -53,4 +56,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
