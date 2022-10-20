@@ -20,7 +20,9 @@ function Login() {
     const data = await response.json();
 
     if (data.user) {
+      localStorage.setItem("token", data.user);
       alert("Login successful!!!");
+      window.location.href = "/dashboard";
     } else {
       alert("Invalid email or password");
     }
@@ -47,7 +49,7 @@ function Login() {
           placeholder="Password"
         />
         <br />
-        <input type="submit" value="Register" />
+        <input type="submit" value="Login" />
       </form>
     </div>
   );
